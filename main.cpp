@@ -51,6 +51,22 @@ inline void mensagemErroArquivo(std::string nomeArquivo)
     std::cout << "erro ao abrir tentar abrir o arquivo: "<< nomeArquivo << std::endl;
 }
 
+void mostrarRepetidos(std::vector<std::string>& vt)
+{
+    int contador = 0;
+
+    for(int i = 0; i < vt.size(); ++i)
+    {
+        for(int j = 0; j < vt.size(); ++j)
+        {
+            if(vt.at(i) == vt.at(j)) { ++contador; }
+        }
+
+        if(contador > 1) { std::cout << vt.at(i) << std::endl; }
+        contador = 0;
+    }
+}
+
 int main(int argc, char* nomeArquivo[])
 {
     if( !argumentosValidos(argc) ) { return 1; }
@@ -59,7 +75,7 @@ int main(int argc, char* nomeArquivo[])
     std::string nomeArq2 = nomeArquivo[2];
     std::vector<std::string> dados1, dados2;
 
-    if( !lerArquivo(nomeArq1, dados1, 2) ) { 
+    if( !lerArquivo(nomeArq1, dados1) ) { 
         mensagemErroArquivo(nomeArq1);
         return 1; 
     }
@@ -70,4 +86,6 @@ int main(int argc, char* nomeArquivo[])
     }
     
     mostrarDiferentes(dados1, dados2);
+    mostrarRepetidos(dados1);
+    mostrarRepetidos(dados2);
 }
