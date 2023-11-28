@@ -18,7 +18,7 @@ void mostrarDiferentes(std::vector<std::string>& vt1, std::vector<std::string>& 
     }
 }
 
-bool lerArquivo(std::string nomeArq, std::vector<std::string>& dadosDestino)
+bool lerArquivo(std::string nomeArq, std::vector<std::string>& dadosDestino, size_t ctr = 0)
 {
     std::ifstream arquivo(nomeArq);
     if(!arquivo.is_open()) { return false; }
@@ -27,6 +27,7 @@ bool lerArquivo(std::string nomeArq, std::vector<std::string>& dadosDestino)
 
     while(std::getline(arquivo,linhaDoArq))
     {
+        linhaDoArq = linhaDoArq.substr(ctr);
         dadosDestino.push_back(linhaDoArq);
     }
 
@@ -58,7 +59,7 @@ int main(int argc, char* nomeArquivo[])
     std::string nomeArq2 = nomeArquivo[2];
     std::vector<std::string> dados1, dados2;
 
-    if( !lerArquivo(nomeArq1, dados1) ) { 
+    if( !lerArquivo(nomeArq1, dados1, 2) ) { 
         mensagemErroArquivo(nomeArq1);
         return 1; 
     }
